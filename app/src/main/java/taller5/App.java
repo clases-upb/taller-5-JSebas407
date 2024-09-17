@@ -8,7 +8,10 @@ public class App {
     public static void main(String[] args) {
         
         try {
-            
+            System.out.println(num_alea(1250));
+            System.out.println(Simular_ventas());
+            System.out.println(Calcular_empaque(2000));
+            System.out.println(Jugar_21(6));
         } 
         
         catch (Exception e) {
@@ -25,6 +28,33 @@ public class App {
         
     
     */ 
+
+    public static int num_alea (int num){
+        try {
+            final int lim_inf = 1000, lim_sup = 9999;
+            int alea = 0;
+            int cont_num = 0;
+
+            if(num>=lim_inf && num<=lim_sup){   
+
+                while(alea!=num){
+
+                    for(int n=1; n<=num; n++){
+                        alea = (int)((Math.random()*(9999-1000)+1000));
+                        cont_num++;
+                        if(alea==num)
+                            break;
+                    }
+                }
+                return cont_num;  
+            }  
+            else
+                return 0; 
+        } 
+        catch (Exception e) {
+            return -1;
+        }
+    }
 
 
 
@@ -62,6 +92,33 @@ public class App {
       
     */
 
+    public static String Simular_ventas(){
+        try {
+            final byte ano_final = 3;
+            final byte mes_final = 12;
+            DecimalFormat form_pesos = new DecimalFormat("$#,###.00");
+            int ventas;
+            String info_ventas = "";
+            int suma_ventas;
+
+            for(int ano=1; ano<=ano_final; ano++){
+                info_ventas = "\n" + info_ventas + "Año " + ano;
+                suma_ventas = 0;
+
+                for(int mes=1; mes<=mes_final; mes++){
+                    ventas = (int)((Math.random()*(99999-0)+0));
+                    info_ventas = info_ventas + "\n Ventas mes " + mes + ":" + form_pesos.format(ventas);
+                    suma_ventas = suma_ventas + ventas;
+                }
+                info_ventas = info_ventas + "\n Total ventas Año " + ano + ":" + form_pesos.format(suma_ventas) + "\n";
+            }
+            return info_ventas;
+        } 
+        catch (Exception e) {
+            return "Error";
+        }     
+    }
+
     
 
 
@@ -85,6 +142,29 @@ public class App {
 
 
     */
+
+    public static String Calcular_empaque (int cant_bombillas){
+        try {
+            final int cajas_x_pallet = 16;
+            final int bomb_x_cajas = 30;
+            int cajas_necesarias =  cant_bombillas/bomb_x_cajas;
+            int pallet_necesario = cajas_necesarias/cajas_x_pallet;
+            String empaques = "Para " + cant_bombillas + " bombillas, se necesitan " + cajas_necesarias + " cajas y " + pallet_necesario + " pallets\n";
+
+            for(int pallet=1; pallet<=pallet_necesario; pallet++){
+                empaques += "Pallet " + pallet + " -->";
+
+                for(int cajas=1; cajas<=cajas_necesarias; cajas++){
+                    empaques += "Caja " + cajas + ", ";
+                }
+                empaques += "\n";
+            }
+            return empaques;
+        } 
+        catch (Exception e) {
+            return "Error";
+        }
+    }
 
 
 
@@ -111,6 +191,38 @@ public class App {
 
 
     */
+
+    public static String Jugar_21 (int usuarios){
+        try {
+            final byte total_cartas = 3;
+            int carta_random;
+            int puntos;
+            String juego;
+            int juga;
+            String jugadores = "";
+
+            for(int jugador=1; jugador<=usuarios; jugador++){
+                juga = jugador;
+                puntos = 0;
+
+                for(int cartas=1; cartas<=total_cartas; cartas++){
+                    carta_random = (int)((Math.random()*(10-1)+1));
+                    puntos += carta_random;
+                }
+                if(puntos>21)
+                    juego = "Se pasó";
+                else if(puntos==21)
+                    juego = "Juego perfecto";
+                else
+                    juego = "Faltaron puntos";
+                jugadores += "Jugador " + juga + ", puntos " + puntos + " --> " + juego + "\n";   
+            }
+            return jugadores;
+        } 
+        catch (Exception e) {
+            return "Error";
+        }
+    }
 
 
 
